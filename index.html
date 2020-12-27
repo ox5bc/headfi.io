@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+ <!-- need an ID !!!! remeber to apply an ID !!!!!!!!!!!! -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>    
+
+
+<!-- ------- normal start --------- -->
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1"/>
+    <meta name="description" content="Metamorph: Injecting Inaudible Commands into Over-the-air Voice Controlled Systems" />
+    <meta name="author" content="Tao Chen">
+
+    <!-- fonts style -->
+    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,bold,900,600">     -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="style.css" rel="stylesheet">  
+    <!-- <link href="bootstrap3_player.css" rel="stylesheet"> -->
+
+	<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+
+    <link rel="icon" href="img/tao_icon.png">
+    <title>Metamorph</title>
+  </head>
+  <body>
+    <div class = "global_container">
+      <div class = "section"  >
+        <br>
+        <br>
+        <h1>Metamorph: Injecting Inaudible Commands into <br>Over-the-air Voice Controlled Systems</h1>
+
+        <h1></h1> 
+        <h1></h1> 
+    		<h4> Overview </h4>
+<hr color=#F1ECEC size="1">
+        <div class ="boxed">
+        	<p> <strong>Audio adversarial examples.</strong> Driven by deep neural networks (DNN), speech recognition (SR) techniques are advancing rapidly and are widely used in practice. However, recent studies have investigated a crucial problem --- Given any audio clip <i>I</i> with transcript <i>T</i> (e.g., <i>“this is for you”</i> as shown in the figure below), by adding a carefully chosen small perturbation sound &delta; (imperceptible to people), the resulting audio <i>I</i>+&delta; can be recognized as some other targeted transcript <i>T'</i> (≠<i>T</i>, e.g., <i>“power off”</i>) by a speech recognition system. This composed audio <i>I</i>+&delta; is known as an audio adversarial example.</p>
+
+        	<img class="scale_img_65" src = "img/adversarial-example.jpg"></img>
+
+        	<br>
+        	<p> <strong>Over-the-air attacks.</strong> However, it is non-trivial to launch this attack to fool the neural network of a speech recognition (SR) system at the receiver side after the over-the-air transmission, because the effective audio signal received by SR after the transmission is <i>H</i>(<i>I</i>+&delta;), instead of <i>I</i>+&delta;, where <i>H</i>(&#8901) represents the signal distortion from the acoustic channel and also the distortion from the device hardware (speaker and microphone). Due to <i>H</i>(&#8901), the effective adversarial example may not lead to <i>T'</i> any more. Therefore, one open question is whether we can find a generic and robust &delta; that survives at any location in space, even when the attacker may not have a chance to measure <i>H</i>(&#8901) in advance.
+          
+        </div>
+
+
+        <h1></h1> 
+		    <h1></h1> 
+		    <h4> Metamorph Design </h4>
+<hr color=#F1ECEC size="1">
+        <div class ="boxed">
+        	<p> <strong>Understand over-the-air audio transmissions.</strong> When an attacker initializes an over-the-air attack, the audio first goes through the transmitter's loudspeaker, then enters the air channel, and finally arrives at the victim's microphone. Overall, the adversarial audio is affected by three factors: <i>device distortion</i>, <i>channel effect</i>, and <i>ambient noise</i>. We first experiment in an acoustic anechoic chamber (avoiding multi-path as shown in the following figure (a)) and find that as devices are optimized for humans’ hearing, the hardware distortion on the audio signal shares many common features in the frequency domain cross devices in the following figure (b) and undermines the over-the-air adversarial attack already. In practice, the problem is naturally more challenging since the channel frequency selectivity will be further superimposed, which could become stronger and highly unpredictable as the distance increases as shown in the following figure (c-d).</p>
+
+        	<img class="scale_img" src = "img/design.jpg"></img>
+			
+			<br>
+			<p> <strong>“Generate-and-Clean” two-phase design.</strong> Although it is difficult to separate these two frequency selectivity sources and conduct precise compensation, because the multi-path effect varies over distance and the hardware distortion shares similar features cross devices, above understanding inspires that (at least) within a reasonable distance before the channel frequency-selectivity dominates and causes <i>H</i>(&#8901) to become highly unpredictable, we can focus on extracting the aggregate distortion effect from both device and channel. Once the core impact is captured, we can factor it into the audio adversary example generation. Therefore, we propose a “generate-and-clean” two-phase design. </p>
+
+			<img class="scale_img_65" src = "img/arch.jpg"></img>
+
+			<br>
+			<p>In phase one, we utilize a small set of public channel impulse response (CIR) measurements as a prior <i>H</i>(&#8901) dataset to generate an initial &delta; that captures the major impact of the frequency-selectivity from these measurements (including both device and channel frequency selectivity) collected in different environments with different devices. The first phase achieves an initial success for the over-the-air attack over short links, e.g., 1 m,  but this primary &delta; inevitably preserves some measurement-specific features, still limiting the attack performance. Therefore, in the second phase, we further leverage domain adaptation algorithms to clean &delta; by compensating the common device-specific feature and also minimizing the unpredictable environment dependent feature from these CIR measurements to further improve the attack distance and reliability. Finally, we also propose mechanisms to improve the audio quality of the generated adversarial examples in Metamorph.</p>
+        </div>
+
+
+        <h1></h1> 
+        <h1></h1>
+        <h4> Attack Demo </h4>
+        <hr color=#F1ECEC size="1">
+        <div class ="boxed">
+          <iframe src="https://www.youtube.com/embed/4NSpwiXMbtc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+        </div>
+
+
+        <h1></h1> 
+        <h1></h1>   
+        <h4> Generated Audio Adversarial Examples </h4>
+
+        <hr color=#F1ECEC size="1">
+        <div class ="boxed">
+          <p> 
+              Metamorph presents two versions of adversarial examples, named as <b>Meta-Enha</b> (when prioritized to reliability) and <b>Meta-Qual</b> (when prioritized to audio quality).
+          </p>
+          <br>
+          <ul class="tag2">
+            <li class="tag2">
+            <i>Audio Group 1: Using musics as source audios</i>
+          </li>
+        </ul>        
+
+          <table class="table table-condensed table-striped">
+            <tbody>
+              <!-- <tr class="table-active"> -->
+              <tr>
+                <td> <b>Classical music</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_bach.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_Classical">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_Classical"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br> “hello world”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_bach.wav" />
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_Classical">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_Classical" />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br> “hello world”</li> 
+                    </ul>  
+                    </div>
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/bach.wav" />
+                  </audio>
+
+                  <footer class="span12">
+                   <a href="#"><label for="2022_Classical">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_Classical"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br> [no transcription]</li> 
+                    </ul>  
+                    </div>
+                  </footer>
+                </td>
+              </tr>
+
+              <tr>
+                <td> <b>Pop music</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_b2.wav" />
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_Pop">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_Pop"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “power off”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_b2.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_Pop">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_Pop"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “power off”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/b2_rock.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_Pop">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_Pop"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br>  “chase your dreams and remember me sweet bravery”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+
+              <tr>
+                <td> <b>Rock music</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_b1.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_Rock">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_Rock"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “pay the money”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_b1.wav" />
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_Rock">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_Rock"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “pay the money”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/b1_pop.wav" />
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_Rock">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_Rock"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br>  “I feel earth move under my feet I feel the sky”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td> <b>Rap music</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_b3.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_Rap">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_Rap"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “turn off the light”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_b3.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_Rap">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_Rap"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “turn off the light”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/b3_rap.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_Rap">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_Rap"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br>  “lyrical acrobat stunts while i'm practicing that i'll still be able to break a motherfuckin'table over the back of a couple”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+             </tbody>
+          </table>
+
+
+          <br>
+          <ul class="tag3">
+            <li class="tag3">
+            <i>Audio Group 2: Using speeches as source audios</i>
+          </li>
+        </ul>
+          
+
+          <table class="table table-condensed table-striped">
+            <tbody>
+              <!-- <tr class="table-active"> -->
+              <tr>
+                <td> <b>Example 1</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_t1.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_e1">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_e1"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “clear all appointments on calendar”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_t1.wav" />
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_e1">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_e1"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “clear all appointments on calendar”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/t1.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_e1">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_e1"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br>  “hold your nose to keep the smell from disabling your motor functions”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+
+              <tr>
+                <td> <b>Example 2</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_t2.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_e2">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_e2"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “open the door”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_t2.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_e2">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_e2"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “open the door”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/t2.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_e2">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_e2"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br>  “your son went to serve at a distant place and became a centurion”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+
+              <tr>
+                <td> <b>Example 3</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_t3.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_e3">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_e3"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “restart”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_t3.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_e3">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_e3"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “restart”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/t3.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_e3">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_e3"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Original: </b><br>  “the shower's in there”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+
+
+              <tr>
+                <td> <b>Example 4</b></td>
+
+                <td>
+                  <audio controls>
+                  <source src="audio/enha/meta_enha_t4.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2020_e4">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2020_e4"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Enha: </b><br>  “open the camera”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/qual/meta_qual_t4.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2021_e4">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2021_e4"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b> Meta-Qual: </b><br>  “open the camera”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+                <td>
+                  <audio controls>
+                  <source src="audio/original/t4.wav"/>
+                  </audio>
+
+                  <footer class="span12">
+                  <a href="#"><label for="2022_e4">[Click to Reveal Transcription]</label></a>.
+                  <input checked="checked" type="checkbox" id="2022_e4"  />
+                  <div class="abstract">
+                    <ul class="tag">
+                      <li class="tag" style="text-align: left">
+                      <b>Original: </b><br>  “and you know it”</li> 
+                    </ul>                   
+                    </div>
+
+                  </footer>
+                </td>
+              </tr>
+             </tbody>
+          </table>
+
+          <!-- </div> -->
+
+          <br>
+          <a href="audio/released_audios.zip" class="myButton">Download Released Audios</a>
+        </div>
+
+
+
+        <h1></h1> 
+        <h1></h1>
+        <h4> Comparison of Related Works </h4>
+
+        <hr color=#F1ECEC size="1">    
+
+        <div class ="boxed">
+              <table class="table table-condensed table-striped">
+            <tbody><tr>
+              <td><strong>Schemes</strong></td>
+              <td><b>Target Model</b></td>
+              <td><b>Attack Setting</b></td>
+
+              <td><b>Over-the-Air</b></td>
+              <td><b>Attack Scenes</b></td>
+              <td><b>Successful Rate</b></td>
+              <td><b>Audio Quality <br> (<a href="http://www.cs.columbia.edu/~ecooper/tts/mcd.html">MCD</a>*)</b></td>
+            </tr>
+            <tr>   
+              <td>Black-box <br> Attacks [<a href="https://arxiv.org/pdf/1805.07820.pdf">1</a>, <a href="https://arxiv.org/pdf/1811.01312.pdf">2</a>]</td>
+              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/Black_box"> Black-box </a> </td>
+              <td> No </td>
+              <td> - </td>
+              <td> - </td>
+              <td> - </td>
+            </tr>
+            <tr>
+              <td><a href="http://cseweb.ucsd.edu/~yaq007/imperceptible-robust-adv.html"> Qin <i>et al</i>.</a></td>
+              <td><a href="https://arxiv.org/pdf/1902.08295.pdf"> Lingvo </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> No </td>
+              <td> Simulated </td>
+              <td> - </td>
+              <td> - </td>
+            </tr>
+            <tr>
+              <td><a href="https://nicholas.carlini.com/code/audio_adversarial_examples/"> Carlini <i>et al</i>.</a></td>
+              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> No </td>
+              <td> - </td>
+              <td> - </td>
+              <td> - </td>
+            </tr>
+            <tr>
+              <td><a href="https://www.ndss-symposium.org/wp-content/uploads/2019/02/ndss2019_08-1_Abdullah_paper.pdf"> Abdullah <i>et al</i>.</a></td>
+              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> Yes </td>
+              <td> 0.3 m (1 foot) </td>
+              <td> 15/15 (trials) </td>
+              <td> - </td>
+            </tr>
+            <tr>
+              <td><a href="https://sites.google.com/view/commandersong"> CommanderSong </a></td>
+              <td><a href="https://kaldi-asr.org/"> Kaldi </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> Yes </td>
+              <td>  1.5 m </td>
+              <td> 78% </td>
+              <td> 22.3 </td>
+            </tr>
+            <tr>
+              <td><a href="https://yumetaro.info/projects/audio-ae/"> Yakura <i>et al</i>.</a></td>
+              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> Yes </td>
+              <td> 0.5 m </td>
+              <td> 80% </td>
+              <td> 25.1 </td>
+            </tr>
+            <tr>
+              <td> <b> Meta-Enha </b> </td>
+              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> Yes </td>
+              <td> 6 m (LoS) </td>
+              <td> 90% </td>
+              <td> 25.2 </td>
+            </tr>
+            <tr>
+              <td> <b> Meta-Qual </b> </td>
+              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
+              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
+              <td> Yes </td>
+              <td> 3 m (LoS) </td>
+              <td> 90% </td>
+              <td> 21.1 </td>
+            </tr>
+          </tbody></table>
+          <p>*Lower MCD value indicates better sound quality.</p>
+		    </div>
+		  
+
+        <h1></h1>
+        <h1></h1>
+        <h4>Cite Metamorph</h4>
+
+        <hr color=#F1ECEC size="1">
+
+        <div class ="boxed">
+          <p> 
+              Authors:
+          </p>
+            <!-- <ul class="lead"> -->
+            <ul>  
+            <li><strong><a href="http://tachen-cs.github.io">Tao Chen</a></strong> at City University of Hong Kong</li>
+            <li><a href="https://shanggdlk.github.io/"><strong>Longfei Shangguan</strong></a> at Microsoft</li>
+            <li><a href="http://www.cs.cityu.edu.hk/~zhenjili/"><strong>Zhenjiang Li</strong></a> at City University of Hong Kong</li>
+            <li><a href="https://www.cs.princeton.edu/~kylej/"><strong>Kyle Jamieson
+            </strong></a> at Princeton University</li>  
+            </ul>          
+
+        <p> This <a href="https://www.ndss-symposium.org/wp-content/uploads/2020/02/23055.pdf">paper</a> is published at <a href="https://www.ndss-symposium.org/ndss2020/">NDSS 2020</a>. </p>
+
+<a href="#bibtex"  class=" myButton " data-toggle="collapse" role="button">
+ Cite the Paper <i class="fa fa-quote-right" aria-hidden="true"></i></a>  
+<div id="bibtex" style="margin-top: 1.5em;" class="collapse" align="left">
+<pre style="white-space: pre">  
+@inproceedings{tao2020Metamorph,
+author = {Chen, Tao and Shangguan, Longfei and Li, Zhenjiang and Jamieson, Kyle},
+title = {Metamorph: Injecting Inaudible Commands into Over-the-air Voice Controlled Systems},
+booktitle={Proceedings of NDSS},
+year = {2020}
+}
+</pre>
+</div>
+</div>  
+             
+        
+
+    <h1></h1> 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- <script src="bootstrap3_player.js"></script> -->
+    <script src="audioplayer.js"></script>
+    <script>
+    $( function()
+    {
+        $( 'audio' ).audioPlayer();
+    });
+    </script>
+
+  </body>
+</html>
