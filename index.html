@@ -26,14 +26,14 @@
 	<script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
 
     <link rel="icon" href="img/tao_icon.png">
-    <title>HeadFi</title>
+    <title>HeadFi: Bringing Intelligence to All Headphones</title>
   </head>
   <body>
     <div class = "global_container">
       <div class = "section"  >
         <br>
         <br>
-        <h1>HeadFi:</h1>
+        <h1>HeadFi:  Bringing Intelligence to All Headphones</h1>
 
         <h1></h1> 
         <h1></h1> 
@@ -42,7 +42,7 @@
         <div class ="boxed">
         	<p> <strong>Audio adversarial examples.</strong> Driven by deep neural networks (DNN), speech recognition (SR) techniques are advancing rapidly and are widely used in practice. However, recent studies have investigated a crucial problem --- Given any audio clip <i>I</i> with transcript <i>T</i> (e.g., <i>“this is for you”</i> as shown in the figure below), by adding a carefully chosen small perturbation sound &delta; (imperceptible to people), the resulting audio <i>I</i>+&delta; can be recognized as some other targeted transcript <i>T'</i> (≠<i>T</i>, e.g., <i>“power off”</i>) by a speech recognition system. This composed audio <i>I</i>+&delta; is known as an audio adversarial example.</p>
 
-        	<img class="scale_img_65" src = "img/adversarial-example.jpg"></img>
+        	<img src = "image/HeadFiPrototype.JPG"></img>
 
         	<br>
         	<p> <strong>Over-the-air attacks.</strong> However, it is non-trivial to launch this attack to fool the neural network of a speech recognition (SR) system at the receiver side after the over-the-air transmission, because the effective audio signal received by SR after the transmission is <i>H</i>(<i>I</i>+&delta;), instead of <i>I</i>+&delta;, where <i>H</i>(&#8901) represents the signal distortion from the acoustic channel and also the distortion from the device hardware (speaker and microphone). Due to <i>H</i>(&#8901), the effective adversarial example may not lead to <i>T'</i> any more. Therefore, one open question is whether we can find a generic and robust &delta; that survives at any location in space, even when the attacker may not have a chance to measure <i>H</i>(&#8901) in advance.
