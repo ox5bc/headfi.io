@@ -38,26 +38,33 @@
 
         <h1></h1>
         <h1></h1>
-        <h2 id="Overview">Overview</h2> <h2 id="Design">Design</h2>
+      <div class ="boxed">
+        <a href ="#overview">Overview</a>
+        <a href ="#design">Design</a>
+        <a href ="#application">Application</a>
+        <a href ="#demo">Demo</a>
+      </div>
 
         <h1></h1> 
         <h1></h1> 
+        <span id ="overview">
         <h4> Overview </h4>
 <hr color=#F1ECEC size="1">
         <div class ="boxed">
         	<p> <strong>Headphones</strong>  is a place holder hahaha</p>
 
-        	<img src = "image/HeadFiPrototype.JPG"></img>
+        	<img src ="image/HeadFiPrototype.JPG"></img>
 
         	<br>
         	<p> <caption><strong>Figure 1: Illustration of HeadFi prototype.</strong>  HeadFi works as a plug-in peripheral that connects a pair of headphones and a smartphone. It captures the minute voltage change on the headphones’ drivers and offloads voltage readings to the smartphone for processing. HeadFi can be miniaturized and further embedded into a smartphone as an integrated circuit.</caption></p>
-          
-        </div>
+        </span>
+      </div>
 
 
         <h1></h1> 
 		    <h1></h1> 
-		    <h4> Design </h4>
+        <span id ="design">
+        <h4> Design </h4>
 <hr color=#F1ECEC size="1">
         <div class ="boxed">
         	<p>
@@ -67,165 +74,32 @@
                 <li>&bull; We build a proof-of-concept prototype and conduct comprehensive experiments with 53 volunteers using 54 pairs of headphones with prices ranging from $ 2.99 to $ 15,000. We further showcase four types of smart services on nonsmart headphones: user identification, touch based gesture control, physiological sensing, and voice communication. We believe the potential of HeadFi is far beyond these.</li>
             </ul>
             </p>
-
+          </span>
         </div>
 
 
         <h1></h1> 
+		    <h1></h1> 
+        <span id ="application">
+        <h4> Application </h4>
+<hr color=#F1ECEC size="1">
+        <div class ="boxed">
+        	<p>
+            <ul>
+                <li>&bull; application 1.</li>
+                <li>&bull; application 2.</li>
+                <li>&bull; application 3.</li>
+            </ul>
+            </p>
+          </span>
+        </div>
+
+        <h1></h1> 
         <h1></h1>
-        <h4> Attack Demo </h4>
+        <span id ="demo">
+        <h4> Demo </h4>
         <hr color=#F1ECEC size="1">
         <div class ="boxed">
           <iframe src="https://www.youtube.com/embed/4NSpwiXMbtc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+        </span>
         </div>
-
-
-        <h1></h1> 
-        <h1></h1>
-        <h4> Comparison of Related Works </h4>
-
-        <hr color=#F1ECEC size="1">    
-
-        <div class ="boxed">
-              <table class="table table-condensed table-striped">
-            <tbody><tr>
-              <td><strong>Schemes</strong></td>
-              <td><b>Target Model</b></td>
-              <td><b>Attack Setting</b></td>
-
-              <td><b>Over-the-Air</b></td>
-              <td><b>Attack Scenes</b></td>
-              <td><b>Successful Rate</b></td>
-              <td><b>Audio Quality <br> (<a href="http://www.cs.columbia.edu/~ecooper/tts/mcd.html">MCD</a>*)</b></td>
-            </tr>
-            <tr>   
-              <td>Black-box <br> Attacks [<a href="https://arxiv.org/pdf/1805.07820.pdf">1</a>, <a href="https://arxiv.org/pdf/1811.01312.pdf">2</a>]</td>
-              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/Black_box"> Black-box </a> </td>
-              <td> No </td>
-              <td> - </td>
-              <td> - </td>
-              <td> - </td>
-            </tr>
-            <tr>
-              <td><a href="http://cseweb.ucsd.edu/~yaq007/imperceptible-robust-adv.html"> Qin <i>et al</i>.</a></td>
-              <td><a href="https://arxiv.org/pdf/1902.08295.pdf"> Lingvo </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> No </td>
-              <td> Simulated </td>
-              <td> - </td>
-              <td> - </td>
-            </tr>
-            <tr>
-              <td><a href="https://nicholas.carlini.com/code/audio_adversarial_examples/"> Carlini <i>et al</i>.</a></td>
-              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> No </td>
-              <td> - </td>
-              <td> - </td>
-              <td> - </td>
-            </tr>
-            <tr>
-              <td><a href="https://www.ndss-symposium.org/wp-content/uploads/2019/02/ndss2019_08-1_Abdullah_paper.pdf"> Abdullah <i>et al</i>.</a></td>
-              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> Yes </td>
-              <td> 0.3 m (1 foot) </td>
-              <td> 15/15 (trials) </td>
-              <td> - </td>
-            </tr>
-            <tr>
-              <td><a href="https://sites.google.com/view/commandersong"> CommanderSong </a></td>
-              <td><a href="https://kaldi-asr.org/"> Kaldi </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> Yes </td>
-              <td>  1.5 m </td>
-              <td> 78% </td>
-              <td> 22.3 </td>
-            </tr>
-            <tr>
-              <td><a href="https://yumetaro.info/projects/audio-ae/"> Yakura <i>et al</i>.</a></td>
-              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> Yes </td>
-              <td> 0.5 m </td>
-              <td> 80% </td>
-              <td> 25.1 </td>
-            </tr>
-            <tr>
-              <td> <b> Meta-Enha </b> </td>
-              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> Yes </td>
-              <td> 6 m (LoS) </td>
-              <td> 90% </td>
-              <td> 25.2 </td>
-            </tr>
-            <tr>
-              <td> <b> Meta-Qual </b> </td>
-              <td><a href="https://github.com/mozilla/DeepSpeech"> DeepSpeech </a></td>
-              <td> <a href="https://en.wikipedia.org/wiki/White_box_(software_engineering)" > White-box </a> </td>
-              <td> Yes </td>
-              <td> 3 m (LoS) </td>
-              <td> 90% </td>
-              <td> 21.1 </td>
-            </tr>
-          </tbody></table>
-          <p>*Lower MCD value indicates better sound quality.</p>
-		    </div>
-		  
-
-        <h1></h1>
-        <h1></h1>
-        <h4>Cite Metamorph</h4>
-
-        <hr color=#F1ECEC size="1">
-
-        <div class ="boxed">
-          <p> 
-              Authors:
-          </p>
-            <!-- <ul class="lead"> -->
-            <ul>  
-            <li><strong><a href="http://tachen-cs.github.io">Tao Chen</a></strong> at City University of Hong Kong</li>
-            <li><a href="https://shanggdlk.github.io/"><strong>Longfei Shangguan</strong></a> at Microsoft</li>
-            <li><a href="http://www.cs.cityu.edu.hk/~zhenjili/"><strong>Zhenjiang Li</strong></a> at City University of Hong Kong</li>
-            <li><a href="https://www.cs.princeton.edu/~kylej/"><strong>Kyle Jamieson
-            </strong></a> at Princeton University</li>  
-            </ul>          
-
-        <p> This <a href="https://www.ndss-symposium.org/wp-content/uploads/2020/02/23055.pdf">paper</a> is published at <a href="https://www.ndss-symposium.org/ndss2020/">NDSS 2020</a>. </p>
-
-<a href="#bibtex"  class=" myButton " data-toggle="collapse" role="button">
- Cite the Paper <i class="fa fa-quote-right" aria-hidden="true"></i></a>  
-<div id="bibtex" style="margin-top: 1.5em;" class="collapse" align="left">
-<pre style="white-space: pre">  
-@inproceedings{tao2020Metamorph,
-author = {Chen, Tao and Shangguan, Longfei and Li, Zhenjiang and Jamieson, Kyle},
-title = {Metamorph: Injecting Inaudible Commands into Over-the-air Voice Controlled Systems},
-booktitle={Proceedings of NDSS},
-year = {2020}
-}
-</pre>
-</div>
-</div>  
-             
-        
-
-    <h1></h1> 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <!-- <script src="bootstrap3_player.js"></script> -->
-    <script src="audioplayer.js"></script>
-    <script>
-    $( function()
-    {
-        $( 'audio' ).audioPlayer();
-    });
-    </script>
-
-  </body>
-</html>

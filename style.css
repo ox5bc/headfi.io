@@ -597,7 +597,8 @@ a:active {
             h2 {
                 text-align: left;
                 font-family: davis-sans,sans-serif;
-                font-weight: 150;
+                font-weight: 400;
+                font-size: 150%;
                 font-style: normal;
                 padding-left: 5px;
                 padding-bottom: 1px;
