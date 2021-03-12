@@ -36,8 +36,13 @@ h6 {
     line-height: 140%;
 }
 
-.container {
-    width: 220px;
-    padding-left: 10%;
+.column1 {
+    padding-left: 15%;
     float: left;
 }
+
+.column2 {
+    padding-right: 15%;
+    float: right;
+}
+
