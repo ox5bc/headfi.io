@@ -1,38 +1,30 @@
 /*fonts need to be changed: 
-  h1 - sans-serif - headings
-  h2 - sans-serif - body 
-  h3 - ??
-  h6 - serif - captions and section names
+  h1 - sans-serif - headings <link rel="stylesheet" href="https://use.typekit.net/vez5kon.css">
+  h2 - serif - captions and section names <link rel="stylesheet" href="https://use.typekit.net/vez5kon.css">
+  h3 - serif - smaller version of h2 <link rel="stylesheet" href="https://use.typekit.net/vez5kon.css">
 */
 
 h1 {
-    text-align: left;
-    font-family: 'monarcha',serif;
-    font-weight: 400;
+    font-family: gitan-latin,sans-serif;
+    font-weight: 600;
     font-style: normal;
-    font-size: 230%;
-    color: #000; 
-    padding-left: 1px;
     line-height: 15%;
 }
 
-/* highlight font*/
 h2 {
-    font-family: 'futura-pt',sans-serif;
-    font-weight: 600;
-    font-style: italic;
-    font-size: 100%;
+    font-family: embury-text,serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 120%;
 }
 
 h3 {
-    font-family: 'houschka-pro',sans-serif;
-    font-weight: 600;
+    font-family: embury-text,serif;
+    font-weight: 300;
     font-style: normal;
     font-size: 100%;
-    line-height: 140%;
 }
 
-/*h6 is the body text*/
 h6 {
     text-align: justify;
     font-family: 'degular',sans-serif;
@@ -42,6 +34,8 @@ h6 {
     color: #000; 
     line-height: 140%;
 }
+
+
 
 .column1 {
     padding-left: 15%;
