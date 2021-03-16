@@ -2,8 +2,8 @@
   h1 - sans-serif - headings <link rel="stylesheet" href="https://use.typekit.net/vez5kon.css">
   h2 - serif - captions and section names <link rel="stylesheet" href="https://use.typekit.net/vez5kon.css">
   h3 - serif - smaller version of h2 <link rel="stylesheet" href="https://use.typekit.net/vez5kon.css">
+  h6 - body??
 */
-
 h1 {
     font-family: gitan-latin,sans-serif;
     font-weight: 600;
@@ -36,7 +36,7 @@ h6 {
 }
 
 
-
+/*columns and positions*/
 .column1 {
     padding-left: 15%;
     float: left;
@@ -55,6 +55,9 @@ h6 {
 .column4 {
     padding-right: 25%;
     float: right;
+}
+.middle {
+    vertical-align: middle;
 }
 
 /*some settings of the hyperlinks*/
