@@ -56,3 +56,20 @@ h6 {
     padding-right: 25%;
     float: right;
 }
+
+/*some settings of the hyperlinks*/
+a:link {
+    color:black;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+  }
+a:hover {
+    color: rgb(158, 158, 158);
+    background-color: transparent;
+    text-decoration: none;
+  }
