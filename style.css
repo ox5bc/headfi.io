@@ -5,21 +5,21 @@
   h6 - body??
 */
 h1 {
-    font-family: gitan-latin,sans-serif;
+    font-family: 'gitan-latin',sans-serif;
     font-weight: 600;
     font-style: normal;
     line-height: 15%;
 }
 
 h2 {
-    font-family: embury-text,serif;
+    font-family: 'embury-text',serif;
     font-weight: 300;
     font-style: normal;
     font-size: 120%;
 }
 
 h3 {
-    font-family: embury-text,serif;
+    font-family: 'embury-text',serif;
     font-weight: 300;
     font-style: normal;
     font-size: 100%;
@@ -56,11 +56,16 @@ h6 {
     padding-right: 25%;
     float: right;
 }
-.box {
+
+.footer {
     padding-left: 15%;
     padding-right: 15%;
-    vertical-align: middle;
-}
+    width: 100%;
+    float: left;
+    text-align: center;
+  }
+
+
 
 /*some settings of the hyperlinks*/
 a:link {
